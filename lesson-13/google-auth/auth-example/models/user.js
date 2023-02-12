@@ -21,10 +21,14 @@ const userSchema = new Schema({
         minlength: 6,
         required: true,
     },
-    token: {
+    accessToken: {
         type: String,
         default: ""
-    }
+    },
+    refreshToken: {
+        type: String,
+        default: ""
+    },
 }, {versionKey: false, timestamps: true});
 
 userSchema.post("save", handleSaveErrors);
@@ -40,9 +44,14 @@ const loginSchema = Joi.object({
     password: Joi.string().min(6).required(),
 })
 
+const refreshSchema = Joi.object({
+    refreshToken: Joi.string().required(),
+})
+
 const schemas = {
     registerSchema,
     loginSchema,
+    refreshSchema,
 }
 
 const User = model("user", userSchema);

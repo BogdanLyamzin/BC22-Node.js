@@ -2,7 +2,6 @@ import instance from "./auth"
 
 export const getBooks = async()=> {
     const {data} = await instance.get("/books");
-    
     return data;
 }
 

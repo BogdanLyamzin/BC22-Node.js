@@ -5,7 +5,7 @@ import { signup, login, logout, current } from "./auth-operations";
 const initialState = {
     user: {},
     isLogin: false,
-    token: "",
+    accessToken: "",
     loading: false,
     error: null,
 };
@@ -20,9 +20,6 @@ const authSlice = createSlice({
         },
         [signup.fulfilled]: (store, {payload}) => {
             store.loading = false;
-            store.user = payload.user;
-            store.token = payload.token;
-            store.isLogin = true;
         },
         [signup.rejected]: (store, {payload}) => {
             store.loading = false;
@@ -35,7 +32,7 @@ const authSlice = createSlice({
         [login.fulfilled]: (store, {payload}) => {
             store.loading = false;
             store.user = payload.user;
-            store.token = payload.token;
+            store.accessToken = payload.accessToken;
             store.isLogin = true;
         },
         [login.rejected]: (store, {payload}) => {
@@ -49,7 +46,7 @@ const authSlice = createSlice({
         [logout.fulfilled]: (store) => {
             store.loading = false;
             store.user = {};
-            store.token = "";
+            store.accessToken = "";
             store.isLogin = false;
         },
         [logout.rejected]: (store, {payload}) => {
@@ -63,13 +60,13 @@ const authSlice = createSlice({
         [current.fulfilled]: (store, {payload}) => {
             store.loading = false;
             store.user = payload.user;
-            store.token = payload.token;
+            store.accessToken = payload.accessToken;
             // stor.user = payload;
             store.isLogin = true;
         },
         [current.rejected]: (store, {payload}) => {
             store.loading = false;
-            store.token = "";
+            store.accessToken = "";
             store.error = payload;
         },
     }
